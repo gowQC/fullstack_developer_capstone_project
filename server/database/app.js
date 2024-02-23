@@ -46,6 +46,26 @@ app.get('/fetchReviews', async (req, res) => {
   }
 });
 
+// Express route to fetch all dealerships
+app.get('/fetchDealers', async (req, res) => {
+    try {
+        const documents = await Dealerships.find();
+        res.json(documents);
+      } catch (error) {
+        res.status(500).json({ error: 'Error fetching all dealerships' });
+      }
+    });
+
+// Express route to fetch Dealers by a particular state
+app.get('/fetchDealers/:state', async (req, res) => {
+    try {
+        const documents = await Dealerships.find({state: req.params.state});
+        res.json(documents);
+      } catch (error) {
+        res.status(500).json({ error: 'Error fetching dealers by state' });
+      }
+    });
+
 // Express route to fetch reviews by a particular dealer
 app.get('/fetchReviews/dealer/:id', async (req, res) => {
   try {
@@ -53,26 +73,6 @@ app.get('/fetchReviews/dealer/:id', async (req, res) => {
     res.json(documents);
   } catch (error) {
     res.status(500).json({ error: 'Error fetching reviews by dealer' });
-  }
-});
-
-// Express route to fetch all dealerships
-app.get('/fetchDealers', async (req, res) => {
-try {
-    const documents = await Dealerships.find();
-    res.json(documents);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching all dealerships' });
-  }
-});
-
-// Express route to fetch Dealers by a particular state
-app.get('/fetchDealers/:state', async (req, res) => {
-try {
-    const documents = await Dealerships.find({state: req.params.state});
-    res.json(documents);
-  } catch (error) {
-    res.status(500).json({ error: 'Error fetching dealers by state' });
   }
 });
 
